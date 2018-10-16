@@ -27,4 +27,10 @@ export class LangSwitchComponent implements OnInit {
     // set loading
   }
 
+  remove (toRemove: string): void {
+    let removeIndex = this.translate.getLangs().indexOf(toRemove);
+    if (removeIndex > -1) {
+      this.translate.langs=this.translate.getLangs().splice(removeIndex, 1);
+    }
+  }
 }

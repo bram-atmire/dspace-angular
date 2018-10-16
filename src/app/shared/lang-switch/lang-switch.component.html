@@ -4,7 +4,7 @@
     <li class="dropdown-item" #langSelect *ngFor="let lang of translate.getLangs()"
             [class.active]="lang === translate.currentLang">
       <span (click)="translate.use(lang)">{{ 'lang.'+lang | translate }}</span>
-      <span (click)="translate.reloadLang(lang)" class="fa fa-close" ></span>
+      <span (click)="this.remove(lang)" class="fa fa-close" ></span>
     </li>
   </ul>
 </div>
