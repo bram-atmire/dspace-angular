@@ -140,7 +140,11 @@ module.exports = {
   }, {
     code: 'nl',
     label: 'Nederlands',
-    active: false,
+    active: true,
+  },{
+    code: 'es',
+    label: 'Espagñol',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
