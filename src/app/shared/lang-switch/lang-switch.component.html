@@ -13,15 +13,15 @@
     </button>
     <div ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate" id="language-menu-list"
          role="listbox">
-      @for (lang of translate.getLangs(); track lang) {
+      @for (lang of activeLangs; track lang.code) {
         <div class="dropdown-item" tabindex="0"
              role="option"
-             [lang]="lang"
-             (keyup.enter)="useLang(lang)"
-             (click)="useLang(lang)"
-             [attr.aria-selected]="lang === translate.getCurrentLang()"
-             [class.active]="lang === translate.getCurrentLang()">
-          {{ langLabel(lang) }}
+             [lang]="lang.code"
+             (keyup.enter)="useLang(lang.code)"
+             (click)="useLang(lang.code)"
+             [attr.aria-selected]="lang.code === translate.getCurrentLang()"
+             [class.active]="lang.code === translate.getCurrentLang()">
+          {{ lang.label }}
         </div>
       }
     </div>

@@ -22,6 +22,7 @@ import {
 
 import { REQUEST } from '../../../express.tokens';
 import { AuthService } from '../auth/auth.service';
+import { LanguageConfigService } from '../config/language-config.service';
 import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import {
@@ -43,9 +44,10 @@ export class ServerLocaleService extends LocaleService {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
+    protected languageConfigService: LanguageConfigService,
     @Inject(DOCUMENT) protected document: any,
   ) {
-    super(_window, cookie, translate, authService, routeService, document);
+    super(_window, cookie, translate, authService, routeService, languageConfigService, document);
   }
 
   /**

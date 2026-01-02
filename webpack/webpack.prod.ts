@@ -17,4 +17,9 @@ module.exports = Object.assign({}, commonExports, {
   recordsOutputPath: projectRoot('webpack.records.json'),
   entry: projectRoot('./server.ts'),
   target: 'node',
+  externals: {
+    'chokidar': 'commonjs2 chokidar',
+    'fsevents': 'commonjs2 fsevents',
+    'js-yaml': 'commonjs2 js-yaml',
+  },
 });

@@ -4,6 +4,7 @@ import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
+import { AdminLanguageSettingsComponent } from './admin-language-settings/admin-language-settings.component';
 import {
   LDN_PATH,
   NOTIFICATIONS_MODULE_PATH,
@@ -54,6 +55,12 @@ export const ROUTES: Route[] = [
     resolve: { breadcrumb: i18nBreadcrumbResolver },
     component: BatchImportPageComponent,
     data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' },
+  },
+  {
+    path: 'language-settings',
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
+    component: AdminLanguageSettingsComponent,
+    data: { title: 'admin.language-settings.title', breadcrumbKey: 'admin.language-settings' },
   },
   {
     path: 'system-wide-alert',

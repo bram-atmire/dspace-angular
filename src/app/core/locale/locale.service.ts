@@ -29,6 +29,7 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
+import { LanguageConfigService } from '../config/language-config.service';
 import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import {
@@ -66,6 +67,7 @@ export class LocaleService implements OnDestroy {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
+    protected languageConfigService: LanguageConfigService,
     @Inject(DOCUMENT) protected document: any,
   ) {
   }
@@ -78,20 +80,35 @@ export class LocaleService implements OnDestroy {
   getCurrentLanguageCode(): Observable<string> {
     // Attempt to get the language from a cookie
     const lang = this.getLanguageCodeFromCookie();
-    if (isEmpty(lang) || this.appConfig.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
-      // Attempt to get the browser language from the user
-      return this.getLanguageCodeList()
-        .pipe(
-          map(browserLangs => {
-            return browserLangs
-              .map(browserLang => browserLang.split(';')[0])
-              .find(browserLang =>
-                this.translate.getLangs().some(userLang => userLang.toLowerCase() === browserLang.toLowerCase()),
-              ) || this.appConfig.fallbackLanguage;
-          }),
-        );
-    }
-    return of(lang);
+
+    // Check if the language from cookie is still active (using dynamic config)
+    return this.languageConfigService.getActiveLanguages().pipe(
+      take(1),
+      mergeMap((activeLanguages: LangConfig[]) => {
+        // If no dynamic languages loaded (SSR), fall back to static config
+        const languagesToCheck = activeLanguages.length > 0
+          ? activeLanguages
+          : this.appConfig.languages.filter((l) => l.active);
+
+        const isLangActive = isNotEmpty(lang) &&
+          languagesToCheck.some((langConfig: LangConfig) => langConfig.code === lang);
+
+        if (isEmpty(lang) || !isLangActive) {
+          // Language not set or no longer active, attempt to get the browser language
+          return this.getLanguageCodeList()
+            .pipe(
+              map(browserLangs => {
+                return browserLangs
+                  .map(browserLang => browserLang.split(';')[0])
+                  .find(browserLang =>
+                    this.translate.getLangs().some(userLang => userLang.toLowerCase() === browserLang.toLowerCase()),
+                  ) || this.appConfig.fallbackLanguage;
+              }),
+            );
+        }
+        return of(lang);
+      }),
+    );
   }
 
   /**

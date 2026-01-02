@@ -56,6 +56,7 @@ import {
   RESPONSE,
 } from './src/express.tokens';
 import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import languageApiRoutes from './src/backend/language-api-routes';
 
 /*
  * Set path for the browser application's dist folder
@@ -203,6 +204,12 @@ export function app() {
    * Checking server status
    */
   server.get('/app/health', healthCheck);
+
+  /**
+   * Language configuration API routes
+   * Allows runtime activation/deactivation of UI languages
+   */
+  server.use('/api/ui', languageApiRoutes);
 
   /**
    * Default sending all incoming requests to ngApp() function, after first checking for a cached

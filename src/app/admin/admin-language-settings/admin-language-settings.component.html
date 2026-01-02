@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>{{ 'admin.language-settings.title' | translate }}</h2>
+      <p class="text-muted">{{ 'admin.language-settings.description' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="mb-3">
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-sm"
+          (click)="disableAllLanguages()"
+          [dsBtnDisabled]="loading"
+          [attr.aria-label]="'admin.language-settings.disable-all' | translate"
+        >
+          <i class="fas fa-ban" aria-hidden="true"></i>
+          {{ 'admin.language-settings.disable-all' | translate }}
+        </button>
+      </div>
+
+      @if (languages$ | async; as languages) {
+        @if (languages.length > 0) {
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">{{ 'admin.language-settings.table.code' | translate }}</th>
+                  <th scope="col">{{ 'admin.language-settings.table.label' | translate }}</th>
+                  <th scope="col" class="text-center">{{ 'admin.language-settings.table.actions' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (language of languages; track trackByCode($index, language)) {
+                  <tr [ngClass]="{ 'table-success': language.active }">
+                    <td>
+                      <code>{{ language.code }}</code>
+                    </td>
+                    <td>
+                      <strong>{{ language.label }}</strong>
+                    </td>
+                    <td class="text-center">
+                      @if (language.active) {
+                        @if (language.code === 'en') {
+                          <small class="text-muted fst-italic">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            {{ 'admin.language-settings.english-protected' | translate }}
+                          </small>
+                        } @else {
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-outline-danger"
+                            (click)="toggleLanguage(language)"
+                            [dsBtnDisabled]="loading"
+                            [attr.aria-label]="'admin.language-settings.actions.disable' | translate : { language: language.label }"
+                          >
+                            <i class="fas fa-times-circle" aria-hidden="true"></i>
+                            {{ 'admin.language-settings.actions.disable' | translate }}
+                          </button>
+                        }
+                      } @else {
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-success"
+                          (click)="toggleLanguage(language)"
+                          [dsBtnDisabled]="loading"
+                          [attr.aria-label]="'admin.language-settings.actions.enable' | translate : { language: language.label }"
+                        >
+                          <i class="fas fa-check-circle" aria-hidden="true"></i>
+                          {{ 'admin.language-settings.actions.enable' | translate }}
+                        </button>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info mt-3" role="alert">
+            <i class="fas fa-info-circle"></i>
+            {{ 'admin.language-settings.info' | translate }}
+          </div>
+        } @else {
+          <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ 'admin.language-settings.no-languages' | translate }}
+          </div>
+        }
+      }
+
+      @if (loading) {
+        <div class="text-center my-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">{{ 'admin.language-settings.loading' | translate }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

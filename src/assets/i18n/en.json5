@@ -899,6 +899,78 @@
 
   "admin.batch-import.page.remove": "remove",
 
+  "admin.language-settings": "Language Settings",
+
+  "admin.language-settings.breadcrumbs": "Language Settings",
+
+  "admin.language-settings.title": "Language Settings",
+
+  "admin.language-settings.description": "Manage which UI languages are available to users. Activate or deactivate languages to control which options appear in the language switcher.",
+
+  "admin.language-settings.refresh": "Refresh",
+
+  "admin.language-settings.loading": "Loading...",
+
+  "admin.language-settings.table.code": "Code",
+
+  "admin.language-settings.table.label": "Language",
+
+  "admin.language-settings.table.status": "Status",
+
+  "admin.language-settings.table.actions": "Actions",
+
+  "admin.language-settings.status.active": "Active",
+
+  "admin.language-settings.status.inactive": "Inactive",
+
+  "admin.language-settings.actions.activate": "Activate {{ language }}",
+
+  "admin.language-settings.actions.deactivate": "Deactivate {{ language }}",
+
+  "admin.language-settings.actions.enable": "Enable",
+
+  "admin.language-settings.actions.disable": "Disable",
+
+  "admin.language-settings.disable-all": "Disable all except English",
+
+  "admin.language-settings.english-protected": "English can only be disabled directly in config.prod.yml",
+
+  "admin.language-settings.info": "Changes take effect immediately for all users. Language configuration is persisted to the server and survives restarts, but may be overwritten on rebuild. To ensure your preferred configuration survives a rebuild, make sure to Enable/Disable desired languages in the config.prod.yml file in your codebase/version control.",
+
+  "admin.language-settings.no-languages": "No languages found in configuration.",
+
+  "admin.language-settings.notifications.activate.success.title": "Language Activated",
+
+  "admin.language-settings.notifications.activate.success.content": "The language has been successfully activated and is now available to users.",
+
+  "admin.language-settings.notifications.activate.error.title": "Activation Failed",
+
+  "admin.language-settings.notifications.activate.error.content": "Failed to activate the language. Please try again.",
+
+  "admin.language-settings.notifications.deactivate.success.title": "Language Deactivated",
+
+  "admin.language-settings.notifications.deactivate.success.content": "The language has been successfully deactivated and is no longer available to users.",
+
+  "admin.language-settings.notifications.deactivate.error.title": "Deactivation Failed",
+
+  "admin.language-settings.notifications.deactivate.error.content": "Failed to deactivate the language. Please try again.",
+
+  "admin.language-settings.notifications.refresh.success.title": "Configuration Refreshed",
+
+  "admin.language-settings.notifications.refresh.success.content": "Language configuration has been successfully refreshed.",
+
+  "admin.language-settings.notifications.refresh.error.title": "Refresh Failed",
+
+  "admin.language-settings.notifications.refresh.error.content": "Failed to refresh language configuration. Please try again.",
+
+  "admin.language-settings.notifications.disable-all.success.title": "Languages Disabled",
+
+  "admin.language-settings.notifications.disable-all.success.content": "All languages except English have been successfully disabled.",
+
+  "admin.language-settings.notifications.disable-all.error.title": "Disable All Failed",
+
+  "admin.language-settings.notifications.disable-all.error.content": "Failed to disable all languages. Please try again.",
+
   "audit.data.not-found": "No audits found.",
 
   "audit.data.self": "self",
@@ -6379,6 +6451,8 @@
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
 
   "menu.section.system-wide-alert": "System-wide Alert",
+
+  "menu.section.language-settings": "Language Settings",
 
   "system-wide-alert.form.header": "System-wide Alert",
 

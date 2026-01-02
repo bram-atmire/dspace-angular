@@ -27,6 +27,7 @@ import { ImportMenuProvider } from './shared/menu/providers/import.menu';
 import { ClaimMenuProvider } from './shared/menu/providers/item-claim.menu';
 import { OrcidMenuProvider } from './shared/menu/providers/item-orcid.menu';
 import { VersioningMenuProvider } from './shared/menu/providers/item-versioning.menu';
+import { LanguageSettingsMenuProvider } from './shared/menu/providers/language-settings.menu';
 import { NewMenuProvider } from './shared/menu/providers/new.menu';
 import { NotificationsMenuProvider } from './shared/menu/providers/notifications.menu';
 import { ProcessesMenuProvider } from './shared/menu/providers/processes.menu';
@@ -73,6 +74,7 @@ export const MENUS = buildMenuStructure({
     WorkflowMenuProvider,
     HealthMenuProvider,
     SystemWideAlertMenuProvider,
+    LanguageSettingsMenuProvider,
     CoarNotifyMenuProvider,
     AuditOverviewMenuProvider,
   ],
