@@ -23,6 +23,7 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  filter,
   map,
   mergeMap,
   take,
@@ -83,12 +84,11 @@ export class LocaleService implements OnDestroy {
 
     // Check if the language from cookie is still active (using dynamic config)
     return this.languageConfigService.getActiveLanguages().pipe(
+      filter((langs) => langs.length > 0),  // Wait for actual data, not empty initial state
       take(1),
       mergeMap((activeLanguages: LangConfig[]) => {
-        // If no dynamic languages loaded (SSR), fall back to static config
-        const languagesToCheck = activeLanguages.length > 0
-          ? activeLanguages
-          : this.appConfig.languages.filter((l) => l.active);
+        // Use the loaded active languages
+        const languagesToCheck = activeLanguages;
 
         const isLangActive = isNotEmpty(lang) &&
           languagesToCheck.some((langConfig: LangConfig) => langConfig.code === lang);
