@@ -1,20 +1,17 @@
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import {
+  Inject,
   Injectable,
   NgZone,
   OnDestroy,
   PLATFORM_ID,
-  Inject,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import {
-  map,
-  tap,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 
@@ -53,7 +50,7 @@ export class LanguageConfigService implements OnDestroy {
   constructor(
     private http: HttpClient,
     private ngZone: NgZone,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
   ) {
     // Don't initialize in constructor to avoid SSR issues
     // Initialization will happen lazily when getActiveLanguages() or getAllLanguages() is called
@@ -87,7 +84,7 @@ export class LanguageConfigService implements OnDestroy {
   private initializeLanguages(): void {
     this.http.get<{ languages: LangConfig[] }>('/api/ui/languages').subscribe({
       next: (response) => this.languagesSubject.next(response.languages),
-      error: (error) => {
+      error: (error: unknown) => {
         console.error('[LanguageConfig] Error loading initial languages:', error);
         // On error, keep the current value (empty array if first load)
       },

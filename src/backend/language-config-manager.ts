@@ -1,7 +1,14 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as yaml from 'js-yaml';
+import {
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import { join } from 'node:path';
+
 import chokidar from 'chokidar';
+import {
+  dump,
+  load,
+} from 'js-yaml';
 import { Subject } from 'rxjs';
 
 interface LangConfig {
@@ -20,7 +27,7 @@ class LanguageConfigManager {
   public configChanged$ = new Subject<LangConfig[]>();
 
   constructor() {
-    this.configFilePath = path.join(__dirname, '../../config/config.prod.yml');
+    this.configFilePath = join(__dirname, '../../config/config.prod.yml');
     this.loadConfig();
     this.watchConfigFile();
   }
@@ -30,8 +37,8 @@ class LanguageConfigManager {
    */
   private loadConfig(): void {
     try {
-      const fileContents = fs.readFileSync(this.configFilePath, 'utf8');
-      this.currentConfig = yaml.load(fileContents);
+      const fileContents = readFileSync(this.configFilePath, 'utf8');
+      this.currentConfig = load(fileContents);
       console.log('[LanguageConfig] Configuration loaded');
     } catch (error) {
       console.error('[LanguageConfig] Error loading config:', error);
@@ -94,13 +101,13 @@ class LanguageConfigManager {
       this.currentConfig.languages[langIndex].active = active;
 
       // Write back to YAML file
-      const yamlStr = yaml.dump(this.currentConfig, {
+      const yamlStr = dump(this.currentConfig, {
         indent: 2,
         lineWidth: 120,
         quotingType: '"',
       });
 
-      fs.writeFileSync(this.configFilePath, yamlStr, 'utf8');
+      writeFileSync(this.configFilePath, yamlStr, 'utf8');
       console.log(`[LanguageConfig] Updated ${code} active=${active}`);
 
       // File watcher will trigger reload and notify clients

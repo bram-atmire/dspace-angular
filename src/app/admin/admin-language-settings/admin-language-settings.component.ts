@@ -1,21 +1,21 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { LanguageConfigService } from '../../core/config/language-config.service';
@@ -82,7 +82,7 @@ export class AdminLanguageSettingsComponent implements OnInit, OnDestroy {
           this.translateService.get(`admin.language-settings.notifications.${action}.success.content`),
         );
       },
-      error: (error) => {
+      error: (error: unknown) => {
         this.loading = false;
         console.error(`Error ${action}ing language ${language.code}:`, error);
         this.notificationsService.error(
@@ -132,7 +132,7 @@ export class AdminLanguageSettingsComponent implements OnInit, OnDestroy {
                 }
               }
             },
-            error: (error) => {
+            error: (error: unknown) => {
               completed++;
               hasError = true;
               console.error(`Error disabling language ${language.code}:`, error);
@@ -148,7 +148,7 @@ export class AdminLanguageSettingsComponent implements OnInit, OnDestroy {
           this.subscription.add(langSub);
         });
       },
-      error: (error) => {
+      error: (error: unknown) => {
         this.loading = false;
         console.error('Error fetching languages:', error);
         this.notificationsService.error(

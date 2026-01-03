@@ -1,4 +1,10 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import {
+  NextFunction,
+  Request,
+  Response,
+  Router,
+} from 'express';
+
 import languageConfigManager from './language-config-manager';
 
 const router = Router();
@@ -100,7 +106,7 @@ router.get('/languages/stream', (req: Request, res: Response) => {
         subscription.unsubscribe();
       }
     },
-    error: (error) => {
+    error: (error: unknown) => {
       console.error('[LanguageAPI] SSE subscription error:', error);
       subscription.unsubscribe();
       res.end();

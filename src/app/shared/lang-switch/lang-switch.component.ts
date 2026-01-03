@@ -1,4 +1,5 @@
 
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -7,9 +8,6 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Subscription } from 'rxjs';
-
 import { LangConfig } from '@dspace/config/lang-config.interface';
 import { LanguageConfigService } from '@dspace/core/config/language-config.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
@@ -18,6 +16,8 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -51,7 +51,7 @@ export class LangSwitchComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private localeService: LocaleService,
     private languageConfigService: LanguageConfigService,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
   ) {
   }
 
